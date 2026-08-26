@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    strategy:
+      matrix:
+        node-version: [20, 22, 24]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run check
+      - run: npm test
+      - run: npm run build
+      - name: Verify bounded worst-case clustering
+        run: node --max-old-space-size=128 scripts/cluster-stress.mjs
+      - name: Verify packed consumer import
+        shell: bash
+        run: |
+          pack=$(npm pack --silent)
+          target=$(mktemp -d)
+          cd "$target"
+          npm init -y >/dev/null
+          npm install --ignore-scripts "$GITHUB_WORKSPACE/$pack" >/dev/null
+          node --input-type=module -e 'import("git-activity-analysis-core").then((module) => { if (typeof module.scanGitRepository !== "function") process.exit(1); })'
+      - name: Verify direct Git dependency install
+        shell: bash
+        env:
+          NPM_CONFIG_ALLOW_GIT: all
+        run: |
+          target=$(mktemp -d)
+          cd "$target"
+          npm init -y >/dev/null
+          npm install "git+https://github.com/${GITHUB_REPOSITORY}.git#${GITHUB_SHA}" >/dev/null
+          node --input-type=module -e 'import("git-activity-analysis-core").then((module) => { if (typeof module.scanGitRepository !== "function") process.exit(1); })'
