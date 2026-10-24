@@ -2,6 +2,14 @@
 
 All notable changes are documented here.
 
+## 0.1.1
+
+- Update affected development-only test tooling to the minimum patched Vitest 4.1.12 line and fix vulnerable lock entries; runtime dependencies remain empty.
+
+- Qualify installed scanning against an owned real Git fixture, including privacy opt-ins, binary paths, tags, bare repositories and linked worktrees.
+- Verify actual analysis/clustering/parser calls and positive/negative TypeScript contracts.
+- Include security/changelog distribution docs and package/contact metadata; scanner/analysis behavior is unchanged.
+
 ## 0.1.0 — 2026-08-26
 
 - Added privacy-aware local Git scanning for normal repositories, bare repositories, linked worktrees, tags, branches, multiline commit bodies, binary changes, and unusual paths.

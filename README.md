@@ -34,7 +34,7 @@ Registry publication is not required to use the package. The GitHub release asse
 npm install https://github.com/FrankFMY/git-activity-analysis-core/releases/download/v0.1.0/git-activity-analysis-core-0.1.0.tgz
 ```
 
-After a registry release:
+Registry installation (when the version is available):
 
 ```bash
 npm install git-activity-analysis-core
@@ -45,6 +45,8 @@ Direct Git dependencies require an explicit opt-in starting with npm 12. The pac
 ```bash
 NPM_CONFIG_ALLOW_GIT=all npm install github:FrankFMY/git-activity-analysis-core#v0.1.0
 ```
+
+[npm package](https://www.npmjs.com/package/git-activity-analysis-core) · [source](https://github.com/FrankFMY/git-activity-analysis-core). If this candidate is not yet in the registry, run `npm ci && npm run build && npm pack` in a source checkout and install that tarball, or use the existing release asset above. The root module uses Node subprocess APIs and is not a browser entry point.
 
 ## Scan a repository
 
@@ -136,11 +138,19 @@ npm run check
 npm test
 npm run build
 npm run pack:check
+npm run package:check
 ```
 
 ## Author
 
 **Artem Prianishnikov** — [FrankFMY](https://github.com/FrankFMY)
+
+- Website: https://frankfmy.com
+- Email: Pryanishnikovartem@gmail.com · frankfmy@proton.me
+- Telegram: https://t.me/FrankFMY
+- LinkedIn: https://www.linkedin.com/in/frankfmy/
+- X: https://x.com/FrankFMY
+- npm: https://www.npmjs.com/~frankfmy
 
 ## License
 

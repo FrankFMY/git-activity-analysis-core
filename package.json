@@ -1,12 +1,13 @@
 {
   "name": "git-activity-analysis-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Privacy-aware, deterministic local Git history scanning, aggregation, and commit clustering.",
   "type": "module",
   "private": false,
   "license": "Apache-2.0",
   "author": {
     "name": "Artem Prianishnikov",
+    "email": "Pryanishnikovartem@gmail.com",
     "url": "https://github.com/FrankFMY"
   },
   "repository": {
@@ -32,7 +33,9 @@
     "dist",
     "LICENSE",
     "NOTICE",
-    "README.md"
+    "README.md",
+    "SECURITY.md",
+    "CHANGELOG.md"
   ],
   "exports": {
     ".": {
@@ -52,13 +55,15 @@
     "prepare": "npm run build",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "pack:check": "npm pack --dry-run"
+    "pack:check": "npm pack --dry-run",
+    "package:check": "node scripts/verify-package-contract.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
     "oxlint": "^1.0.0",
     "prettier": "^3.0.0",
     "typescript": "^6.0.0",
-    "vitest": "^3.0.0"
+    "vite": "7.3.7",
+    "vitest": "4.1.12"
   }
 }

@@ -24,20 +24,13 @@ jobs:
       - run: npm ci
       - run: npm run format:check
       - run: npm run lint
+      - run: npm audit --audit-level=high
       - run: npm run check
       - run: npm test
       - run: npm run build
       - name: Verify bounded worst-case clustering
         run: node --max-old-space-size=128 scripts/cluster-stress.mjs
-      - name: Verify packed consumer import
-        shell: bash
-        run: |
-          pack=$(npm pack --silent)
-          target=$(mktemp -d)
-          cd "$target"
-          npm init -y >/dev/null
-          npm install --ignore-scripts "$GITHUB_WORKSPACE/$pack" >/dev/null
-          node --input-type=module -e 'import("git-activity-analysis-core").then((module) => { if (typeof module.scanGitRepository !== "function") process.exit(1); })'
+      - run: npm run package:check
       - name: Verify direct Git dependency install
         shell: bash
         env:
